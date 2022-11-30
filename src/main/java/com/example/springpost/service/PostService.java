@@ -33,7 +33,7 @@ public class PostService {
             postListResponseDto.addPost(new PostResponseDto(post));
         }
         return postListResponseDto;
-    } //게시판 목록 불러오기
+    } //게시판 목록 불러오기11
     @Transactional
     public PostResponseDto getPostSelect(Long id) {
         Post post = postRepository.findById(id).orElseThrow(
