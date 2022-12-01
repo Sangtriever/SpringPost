@@ -11,13 +11,20 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostResponseDto extends Post {
+public class PostResponseDto{
+
     private Long id;
+
     private LocalDateTime createdAt;
+
     private LocalDateTime modifiedAt;
+
     private String name;
+
     private String contents;
-    private String password;
+
+    private String password ;
+
     private String title;
 
 
@@ -28,7 +35,7 @@ public class PostResponseDto extends Post {
         this.id = post.getId();
         this.name = post.getName();
         this.contents = post.getContents();
-        this.password = post.getPassword();
+        this.password = "****";
         this.title = post.getTitle();
 
     }
