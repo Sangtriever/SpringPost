@@ -4,8 +4,10 @@ import com.example.springpost.dto.PostRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,11 +15,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Post extends Timestamped {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // GenerationType.~ 종류가 있다
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // GenerationType.~ 종류가 있다
+    private Long postId;
 
     @Column(nullable = false) // @column은 왜 썼을까
     private String name;
+
     @Column(nullable = false)
     private String title;
 
@@ -27,18 +30,33 @@ public class Post extends Timestamped {
     @Column(nullable = false)
     private String password;
 
-    public Post(PostRequestDto requestDto) {
-        this.name = requestDto.getName();
+    @OneToMany(mappedBy = "post",fetch =FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
+
+
+    public Post(String username, String password, PostRequestDto requestDto) {
+        this.name = username;
         this.contents = requestDto.getContents();
-        this.password = requestDto.getPassword();
+        this.password = password;
         this.title = requestDto.getTitle();
     }
 
-    public void update(PostRequestDto requestDto) {
-        this.name = requestDto.getName();
+//    public void savepost(String username, String password, PostRequestDto requestDto, Long id) {
+//        this.name = username;
+//        this.password = password;
+//        this.contents = requestDto.getContents();
+//        this.title = requestDto.getTitle();
+//        this.userId = id;
+//
+//    }
+
+    public void update(Post post, PostRequestDto requestDto, Long postId) {
+        this.name =post.getName();
         this.contents = requestDto.getContents();
-        this.password = requestDto.getPassword();
+        this.password = post.getPassword();
         this.title = requestDto.getTitle();
+        this.postId = postId;
     }
 
 

@@ -1,17 +1,15 @@
 package com.example.springpost.controller;
 
-import com.example.springpost.dto.PostListResponseDto;
-import com.example.springpost.dto.PostRequestDto;
-import com.example.springpost.dto.PostResponseDto;
-import com.example.springpost.dto.ResponseDto;
+import com.example.springpost.dto.*;
 import com.example.springpost.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,30 +29,29 @@ public class PostController {
     }
 
     @PostMapping("/api/postwrite") //게시글 등록
-    public ResponseDto savepost(@RequestBody PostRequestDto requestDto){
-        return postService.savePost(requestDto);
-    }
+    public PostResponseDto savepost(@RequestBody PostRequestDto requestDto, HttpServletRequest request){
 
+        return postService.savePost(requestDto, request);
+    }
     @GetMapping("/api/read/posts") // 게시글 불러오기
     public PostListResponseDto getPosts(){
         return postService.getPosts();
     }
 
     @GetMapping("/api/view/post") // 게시글 조회
-    public PostResponseDto getPost(@RequestParam Long id){
-        return postService.getPostSelect(id);
+    public PostResponseDto getPost(@RequestParam Long postId){
+        return postService.getPostSelect(postId);
     }
 
-    @PutMapping("/api/update/post/{id}") // 게시글 업데이트
-    public ResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto){
-        return postService.updatePost(id,requestDto);
+    @PutMapping("/api/update/post/{postId}") // 게시글 업데이트
+    public MsgResponseDto updatePost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto , HttpServletRequest request){
+        return postService.updatePost(postId,requestDto,request);
     }
 
-    @DeleteMapping("/api/delete/post/{id}/{pw}") // 게시글 삭제
-    public ResponseDto deleteCourse(@PathVariable Long id, @PathVariable String pw){
-        return postService.deletePost(id,pw);
+    @DeleteMapping("/api/delete/post/{postId}") // 게시글 삭제
+    public ResponseDto deleteCourse(@PathVariable Long postId, HttpServletRequest request){
+        return postService.deletePost(postId,request);
     }
-
 
     //    @PostMapping("/api/postwrite") // 구버전 게시글 등록
 //     public Post createPost(@RequestBody PostRequestDto requestDto) {

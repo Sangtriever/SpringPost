@@ -11,4 +11,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {// <연결할
 
     List<Post> findAllByOrderByModifiedAtDesc();
 
+
 }

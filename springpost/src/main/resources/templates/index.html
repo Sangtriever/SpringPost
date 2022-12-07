@@ -247,7 +247,6 @@
                         </td>
                         <td class="tit" width="50%">
                             <a href="/postview/${id}" target="_blank">${title}</a>
-                            <button id="${id}" onclick="">게시글 보기</button>
                         </td>
                         <td width="20%">${name}</td>
                         <td width="20%">${modifiedAt}</td>
@@ -279,6 +278,13 @@
             background-color: black;
             color: white !important;;
         }
+        .left_button {
+            float: left;
+        }
+        .right_button{
+            float: right;
+        }
+
 
     </style>
 </head>
@@ -290,7 +296,17 @@
     <table class="board_list">
         <caption> 게시판 목록</caption>
         <thead>
-        <button class="write_button" type="button" onclick=location.href='postwrite'>글쓰기</button>
+        <div>
+            <p class="left_button">
+                <button class="write_button" type="button" onclick=location.href='postwrite'>글쓰기</button>
+            </p>
+            <p class="right_button">
+                <button class="write_button" type="button" onclick=location.href='api/user/signup'>회원가입</button>
+                <button class="write_button" type="button" onclick=location.href='api/user/login'>로그인</button>
+            </p>
+        </div>
+
+
         <!--        <button class="write_button" type="button" onclick="main()">메인페이지</button>-->
         </thead>
 
