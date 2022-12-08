@@ -100,14 +100,14 @@ public class PostService {
             );
 
             if(user.getRole().toString().equals("ADMIN")){
-                post.update(post, requestDto, user.getUserId());
+                post.update(post, requestDto);
                 return new MsgResponseDto(post);
             }
 
             String password = user.getPassword();
             if (post.getName().equals(user.getUsername())) {
                 if(password.equals(post.getPassword())){
-                    post.update(post, requestDto, user.getUserId());
+                    post.update(post, requestDto);
                     return new MsgResponseDto(post);
                 }else{
                     throw new RequestException(ErrorCode.BAD_ID_400);

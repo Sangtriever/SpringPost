@@ -123,7 +123,7 @@ public class CommentService {
 
             if(user.getRole().toString().equals("ADMIN")){
                 commentRepository.delete(comment);
-                return new ResponseDto("게시글 삭제 성공", HttpStatus.OK.value());
+                return new ResponseDto("댓글 삭제 성공", HttpStatus.OK.value());
             }
             String password = user.getPassword();
             if (comment.getName().equals(user.getUsername())) {
